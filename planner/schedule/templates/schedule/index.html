@@ -30,7 +30,7 @@
           
           {% for event in classes_list %}
           
-          ["{{event.event}}", "{{event.name}}", new Date({{year}}, {{month}}, {{day}}, {{event.start.hour}}, {{event.start.minute}}), new Date({{year}}, {{month}}, {{day}}, {{event.end.hour}}, {{event.end.minute}})],
+          ["{{event.event}}", "{{event.name}}", new Date({{year}}, {{month}}, {{day}}, {{event.start.hour}}-8, {{event.start.minute}}), new Date({{year}}, {{month}}, {{day}}, {{event.end.hour}}-8, {{event.end.minute}})],
           
           {% endfor %}
           
@@ -48,8 +48,8 @@
     <h1 style="font-family: sans-serif; font-size: 46pt; margin: 0;">{{date}}</h1>
     <h3 style="font-family: sans-serif; margin: 0;">{{real_month}}/{{day}}/{{year}}</h3>
     <br/>
-    <span style="font-family: sans-serif; font-size: 16pt; color: navy" onclick="window.open('/{{year}}/{{real_month}}/{{day_minus}}/', '_self')">Back</span>
-    <span style="font-family: sans-serif; font-size: 16pt;  color: navy; position: fixed; left: 1150px;" onclick="window.open('/{{year}}/{{real_month}}/{{day_plus}}/', '_self')">Next</span>
+    <a style="font-family: sans-serif; font-size: 16pt; color: navy; text-decoration: none;" href="/{{year}}/{{real_month}}/{{day_minus}}/">Back</a>
+    <a style="font-family: sans-serif; font-size: 16pt;  color: navy; position: fixed; left: 1150px; text-decoration: none;" href="/{{year}}/{{real_month}}/{{day_plus}}/">Next</a>
     <br/>
     <br/>
     <div id="timeline" style="width: 1200px; height: 460px;"></div>

@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.template import RequestContext, loader
 import datetime, calendar
+from schedule.models import Event
 
 
 def planner(request, y, m, d):
@@ -21,15 +22,19 @@ def planner(request, y, m, d):
 
 		return HttpResponseRedirect("/"+str(y)+"/"+str(m)+"/"+str(d)+"/")
 
-	if int(day_of_week) == 0: from schedule.models import monday as date; day_of_week_string = "Monday"
-	elif int(day_of_week) == 1: from schedule.models import tuesday as date; day_of_week_string = "Tuesday"
-	elif int(day_of_week) == 2: from schedule.models import wednesday as date; day_of_week_string = "Wednesday"
-	elif int(day_of_week) == 3: from schedule.models import thursday as date; day_of_week_string = "Thursday"
-	elif int(day_of_week) == 4: from schedule.models import friday as date; day_of_week_string = "Friday"
+	if int(day_of_week) == 0: day_of_week_string = "Monday"
+	elif int(day_of_week) == 1: day_of_week_string = "Tuesday"
+	elif int(day_of_week) == 2: day_of_week_string = "Wednesday"
+	elif int(day_of_week) == 3: day_of_week_string = "Thursday"
+	elif int(day_of_week) == 4: day_of_week_string = "Friday"
 	elif int(day_of_week) == 5: return planner(request, y, m, int(d)+2)
 	elif int(day_of_week) == 6: return planner(request, y, m, int(d)-2)
 
-	classes_list = date.classes
+	classes_list = []
+
+	for i in Event.objects.all():
+		if i.day == day_of_week_string:
+			classes_list.append(i)
 
 	context = RequestContext(request, {
 		'day_plus': int(d)+1,
@@ -50,4 +55,4 @@ def planner_recent(request):
 	m = date.month
 	d = date.day
 
-	return planner(request, y, m, d)
+	return HttpResponseRedirect("/"+str(y)+"/"+str(m)+"/"+str(d)+"/")
