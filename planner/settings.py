@@ -17,13 +17,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#with open('/home/pi/planner/planner/secret_key.txt') as f:
-#    SECRET_KEY = f.read().strip()
+with open('secret_key.txt') as f:
+    SECRET_KEY = f.read().strip()
 
-SECRET_KEY = "skldjfkhk3jk424k234jkdds23s<234>"
+#SECRET_KEY = "skldjfkhk3jk424k234jkdds23s<234>"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 TEMPLATE_DEBUG = True
 
